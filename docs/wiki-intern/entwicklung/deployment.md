@@ -55,23 +55,36 @@ Der Installer:
 
 Workflows unter `.github/workflows/`:
 
-| Datei                                     | Zweck                                                      |
-| ----------------------------------------- | ---------------------------------------------------------- |
-| `docker.yml`                              | Multi-Plattform-Docker-Image-Build und Push nach `ghcr.io` |
-| `docker-latest.yml`                       | Latest-Tag-Update                                          |
-| `dockerlint.yml`                          | Hadolint-Check für Dockerfile                              |
-| `caddy.yml`                               | Build des Caddy-Sidecar-Image (`shieldpm:caddy`)           |
-| `caddy-fmt.yml`                           | Formatierungs-Check für `caddy/Caddyfile`                  |
-| `codeql.yml`                              | Statische Sicherheitsanalyse (GitHub CodeQL)               |
-| `lint-and-format.yml`                     | Biome-Linter und Prettier-Check                            |
-| `shellcheck.yml`                          | Lint für `scripts/install.sh` und Rootfs-Shell-Scripts     |
-| `json.yml`                                | JSON-Lint (Schema-Files, RBAC-Rules)                       |
-| `spellcheck.yml`                          | codespell mit Skip-Liste (siehe Konfig im Workflow)        |
-| `dependency-updates.yml`                  | Renovate-Trigger / Updater                                 |
-| `npm-updates.yml`                         | NPM-Update-Helper                                          |
-| `wiki-sync.yml`                           | Synchronisiert `docs/wiki/` mit dem GitHub-Wiki-Repo       |
-| `.github/codeql/codeql-config.yml`        | CodeQL-Analyse-Konfiguration                               |
-| `.github/delete-merged-branch-config.yml` | GitHub Auto-Delete Merged Branch Konfiguration             |
+| Datei                                     | Zweck                                                                    |
+| ----------------------------------------- | ------------------------------------------------------------------------ |
+| `docker.yml`                              | Multi-Plattform-Docker-Image-Build und Push nach `ghcr.io`               |
+| `docker-latest.yml`                       | Latest-Tag-Update                                                        |
+| `docker-release.yml`                      | Vollstaendiger Release-Flow fuer Forks: Multi-Arch Push + GitHub Release |
+| `dockerlint.yml`                          | Hadolint-Check für Dockerfile                                            |
+| `caddy.yml`                               | Build des Caddy-Sidecar-Image (`shieldpm:caddy`)                         |
+| `caddy-fmt.yml`                           | Formatierungs-Check für `caddy/Caddyfile`                                |
+| `codeql.yml`                              | Statische Sicherheitsanalyse (GitHub CodeQL)                             |
+| `lint-and-format.yml`                     | Biome-Linter und Prettier-Check                                          |
+| `shellcheck.yml`                          | Lint für `scripts/install.sh` und Rootfs-Shell-Scripts                   |
+| `json.yml`                                | JSON-Lint (Schema-Files, RBAC-Rules)                                     |
+| `spellcheck.yml`                          | codespell mit Skip-Liste (siehe Konfig im Workflow)                      |
+| `dependency-updates.yml`                  | Renovate-Trigger / Updater                                               |
+| `npm-updates.yml`                         | NPM-Update-Helper                                                        |
+| `wiki-sync.yml`                           | Synchronisiert `docs/wiki/` mit dem GitHub-Wiki-Repo                     |
+| `.github/codeql/codeql-config.yml`        | CodeQL-Analyse-Konfiguration                                             |
+| `.github/delete-merged-branch-config.yml` | GitHub Auto-Delete Merged Branch Konfiguration                           |
+
+## Release aus Forks
+
+Die bestehenden Workflows `docker.yml` und `docker-latest.yml` enthalten eine Owner-Pruefung
+(`github.repository_owner == 'shedowe19'`) und laufen deshalb in Forks nicht durch.
+
+Fuer Fork-Releases steht `docker-release.yml` zur Verfuegung:
+
+1. Trigger per Tag-Push (`v*`) oder manuell per `workflow_dispatch`.
+2. Buildx-Build fuer `linux/amd64` und `linux/arm64`.
+3. Push nach `ghcr.io/<repo-owner-lowercase>/shieldpm`.
+4. Erstellung/Update eines GitHub Releases zum gewaehlten Tag.
 
 ## Hilfs-Skripte
 
