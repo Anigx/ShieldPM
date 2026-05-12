@@ -64,4 +64,8 @@ jobs:
 
       - name: Run backend tests
         working-directory: backend
-        run: yarn test --run --passWithNoTests
+        env:
+          DATA_PATH: /tmp/shieldpm-ci
+        run: |
+          mkdir -p "$DATA_PATH/shieldpm"
+          yarn test --run --passWithNoTests
