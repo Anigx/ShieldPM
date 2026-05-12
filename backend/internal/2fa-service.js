@@ -251,14 +251,17 @@ const PASSKEY_ORIGIN = process.env.PASSKEY_ORIGIN || null; // null = derive dyna
  * @param {object} req  Express request object
  * @returns {{ rpID: string, origin: string }}
  */
-const getPasskeyContext = (req) => {
-	const origin = PASSKEY_ORIGIN || req.headers.origin || `${req.protocol}://${req.hostname}`;
+const getPasskeyContext = (req = {}) => {
+	const safeReq = req && typeof req === "object" ? req : {};
+	const fallbackProtocol = safeReq.protocol || "https";
+	const fallbackHost = safeReq.hostname || "localhost";
+	const origin = PASSKEY_ORIGIN || safeReq.headers?.origin || `${fallbackProtocol}://${fallbackHost}`;
 	let rpID = PASSKEY_RP_ID;
 	if (!rpID) {
 		try {
 			rpID = new URL(origin).hostname;
 		} catch {
-			rpID = req.hostname || "localhost";
+			rpID = fallbackHost;
 		}
 	}
 	return { rpID, origin };
