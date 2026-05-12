@@ -15,6 +15,11 @@ on:
         required: false
         default: false
         type: boolean
+      base_image:
+        description: "Final-stage base image override"
+        required: false
+        default: "nginx:stable-bookworm"
+        type: string
 
 permissions:
   contents: write
@@ -48,6 +53,14 @@ jobs:
           OWNER_LC="$(echo "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')"
           IMAGE_REPO="ghcr.io/${OWNER_LC}/shieldpm"
           SHORT_SHA="$(git rev-parse --short HEAD)"
+          BASE_IMAGE="${{ vars.SHIELDPM_BASE_IMAGE }}"
+
+          if [[ -z "${BASE_IMAGE}" ]]; then
+            BASE_IMAGE="nginx:stable-bookworm"
+          fi
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && -n "${{ inputs.base_image }}" ]]; then
+            BASE_IMAGE="${{ inputs.base_image }}"
+          fi
 
           TAGS="${IMAGE_REPO}:${RELEASE_TAG}"
           TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${RELEASE_TAG}-${SHORT_SHA}"
@@ -69,6 +82,7 @@ jobs:
             echo "image_repo=${IMAGE_REPO}"
             echo "short_sha=${SHORT_SHA}"
             echo "publish_latest=${PUBLISH_LATEST}"
+            echo "base_image=${BASE_IMAGE}"
             echo "tags<<EOF"
             echo "${TAGS}"
             echo "EOF"
@@ -95,6 +109,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            BASE_IMAGE=${{ steps.meta.outputs.base_image }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
@@ -112,6 +128,7 @@ jobs:
 
             - `${{ steps.meta.outputs.image_repo }}:${{ steps.meta.outputs.release_tag }}`
             - `${{ steps.meta.outputs.image_repo }}:${{ steps.meta.outputs.release_tag }}-${{ steps.meta.outputs.short_sha }}`
+            - Build base image: `${{ steps.meta.outputs.base_image }}`
 
             Pull command:
 

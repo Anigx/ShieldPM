@@ -47,7 +47,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm binu
 # ==========================================
 # Final Stage
 # ==========================================
-FROM ghcr.io/shedowe19/shieldpm-nginx:master
+ARG BASE_IMAGE=ghcr.io/shedowe19/shieldpm-nginx:master
+FROM ${BASE_IMAGE}
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 ENV NODE_ENV=production
 
@@ -65,6 +66,7 @@ COPY rootfs /
 
 # --- WireGuard Support ---
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    tini \
     wireguard-tools \
     iproute2 \
     iptables \
