@@ -98,7 +98,8 @@ vi.mock("../../models/user-2fa-backup-codes.js", () => ({
 				resultSize: vi.fn(() => Promise.resolve(fakeBackupCodeRows.length)),
 			})),
 			insert: vi.fn((rows) => {
-				fakeBackupCodeRows.push(...rows);
+				const values = Array.isArray(rows) ? rows : [rows];
+				fakeBackupCodeRows.push(...values);
 				return Promise.resolve();
 			}),
 		})),
@@ -119,12 +120,9 @@ vi.mock("../../models/user.js", () => ({
 // ── Mock: otplib ────────────────────────────────────────────────────────────
 
 vi.mock("otplib", () => ({
-	authenticator: {
-		generateSecret: vi.fn(() => "JBSWY3DPEHPK3PXP"),
-		keyuri: vi.fn(() => "otpauth://totp/ShieldPM:test@example.com?secret=JBSWY3DPEHPK3PXP"),
-		verify: vi.fn(() => true),
-	},
 	generateSecret: vi.fn(() => "JBSWY3DPEHPK3PXP"),
+	generateURI: vi.fn(() => "otpauth://totp/ShieldPM:test@example.com?secret=JBSWY3DPEHPK3PXP"),
+	verifySync: vi.fn(() => ({ valid: true })),
 }));
 
 // ── Mock: qrcode ────────────────────────────────────────────────────────────

@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies to avoid side effects (db connection, file writing)
 vi.mock("../../models/certificate.js", () => ({ default: {} }));
+vi.mock("../../models/proxy_host.js", () => ({ default: {} }));
+vi.mock("../../models/redirection_host.js", () => ({ default: {} }));
+vi.mock("../../models/dead_host.js", () => ({ default: {} }));
+vi.mock("../../models/stream.js", () => ({ default: {} }));
 vi.mock("../../internal/audit-log.js", () => ({ default: {} }));
 vi.mock("../../internal/nginx.js", () => ({ default: {} }));
 vi.mock("../../internal/certbot.js", () => ({
