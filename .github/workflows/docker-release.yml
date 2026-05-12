@@ -18,7 +18,7 @@ on:
       base_image:
         description: "Final-stage base image override"
         required: false
-        default: "nginx:stable-bookworm"
+        default: "ghcr.io/shedowe19/shieldpm:latest"
         type: string
 
 permissions:
@@ -56,7 +56,7 @@ jobs:
           BASE_IMAGE="${{ vars.SHIELDPM_BASE_IMAGE }}"
 
           if [[ -z "${BASE_IMAGE}" ]]; then
-            BASE_IMAGE="nginx:stable-bookworm"
+            BASE_IMAGE="ghcr.io/shedowe19/shieldpm:latest"
           fi
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && -n "${{ inputs.base_image }}" ]]; then
             BASE_IMAGE="${{ inputs.base_image }}"

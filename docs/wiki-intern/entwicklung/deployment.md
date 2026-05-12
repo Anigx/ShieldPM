@@ -86,7 +86,7 @@ Fuer Fork-Releases steht `docker-release.yml` zur Verfuegung:
 3. Push nach `ghcr.io/<repo-owner-lowercase>/shieldpm`.
 4. Erstellung/Update eines GitHub Releases zum gewaehlten Tag.
 5. Base-Image per Workflow-Input `base_image` oder Repository-Variable `SHIELDPM_BASE_IMAGE` ueberschreibbar
-   (Standard fuer Forks: `nginx:stable-bookworm`).
+   (Standard fuer Forks: `ghcr.io/shedowe19/shieldpm:latest`).
 
 ## Hilfs-Skripte
 
