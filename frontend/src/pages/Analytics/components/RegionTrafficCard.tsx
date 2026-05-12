@@ -32,10 +32,20 @@ export function RegionTrafficCard({ items }: RegionTrafficCardProps) {
 				{items.length ? (
 					<ResponsiveContainer width="100%" height="100%">
 						<BarChart data={chartData}>
-							<XAxis dataKey="regionLabel" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} interval={0} />
+							<XAxis
+								dataKey="regionLabel"
+								stroke="#94a3b8"
+								fontSize={11}
+								tickLine={false}
+								axisLine={false}
+								interval={0}
+							/>
 							<YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
 							<CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
-							<Tooltip cursor={{ fill: "transparent" }} contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: 8 }} />
+							<Tooltip
+								cursor={{ fill: "transparent" }}
+								contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: 8 }}
+							/>
 							<Bar dataKey="requests" fill="#0ea5e9" radius={[6, 6, 0, 0]} />
 						</BarChart>
 					</ResponsiveContainer>
@@ -48,4 +58,3 @@ export function RegionTrafficCard({ items }: RegionTrafficCardProps) {
 		</Card>
 	);
 }
-

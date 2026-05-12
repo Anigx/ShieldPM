@@ -80,23 +80,38 @@ export default function GeoIntelligence() {
 
 			<div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
 				<div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-					<p className="text-xs text-muted-foreground flex items-center gap-2"><IconWorld className="h-4 w-4 text-cyan-300" /><T id="analytics.geo.kpi.active-countries" /></p>
+					<p className="text-xs text-muted-foreground flex items-center gap-2">
+						<IconWorld className="h-4 w-4 text-cyan-300" />
+						<T id="analytics.geo.kpi.active-countries" />
+					</p>
 					<p className="text-2xl font-semibold mt-1">{geo.activeCountryCount}</p>
 				</div>
 				<div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-					<p className="text-xs text-muted-foreground flex items-center gap-2"><IconAlertTriangle className="h-4 w-4 text-orange-300" /><T id="analytics.geo.kpi.suspicious-countries" /></p>
+					<p className="text-xs text-muted-foreground flex items-center gap-2">
+						<IconAlertTriangle className="h-4 w-4 text-orange-300" />
+						<T id="analytics.geo.kpi.suspicious-countries" />
+					</p>
 					<p className="text-2xl font-semibold mt-1">{geo.suspiciousCountryCount}</p>
 				</div>
 				<div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-					<p className="text-xs text-muted-foreground flex items-center gap-2"><IconShield className="h-4 w-4 text-purple-300" /><T id="analytics.geo.kpi.blocked-requests" /></p>
+					<p className="text-xs text-muted-foreground flex items-center gap-2">
+						<IconShield className="h-4 w-4 text-purple-300" />
+						<T id="analytics.geo.kpi.blocked-requests" />
+					</p>
 					<p className="text-2xl font-semibold mt-1">{blockedLabel}</p>
 				</div>
 				<div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-					<p className="text-xs text-muted-foreground flex items-center gap-2"><IconTargetArrow className="h-4 w-4 text-cyan-300" /><T id="analytics.geo.kpi.top-hotspot" /></p>
+					<p className="text-xs text-muted-foreground flex items-center gap-2">
+						<IconTargetArrow className="h-4 w-4 text-cyan-300" />
+						<T id="analytics.geo.kpi.top-hotspot" />
+					</p>
 					<p className="text-2xl font-semibold mt-1">{geo.topHotspot}</p>
 				</div>
 				<div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-					<p className="text-xs text-muted-foreground flex items-center gap-2"><IconFlame className="h-4 w-4 text-red-300" /><T id="analytics.geo.kpi.peak" /></p>
+					<p className="text-xs text-muted-foreground flex items-center gap-2">
+						<IconFlame className="h-4 w-4 text-red-300" />
+						<T id="analytics.geo.kpi.peak" />
+					</p>
 					<p className="text-2xl font-semibold mt-1">{geo.peakTime}</p>
 				</div>
 			</div>
@@ -267,4 +282,3 @@ export default function GeoIntelligence() {
 		</div>
 	);
 }
-

@@ -80,4 +80,3 @@ export function getRiskStroke(risk: RiskLevel): string {
 			return "#22d3ee";
 	}
 }
-

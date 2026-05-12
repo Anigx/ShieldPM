@@ -30,12 +30,17 @@ export function BlockedSourcesCard({ items, isHeuristic = true }: BlockedSources
 				{sourceItems.length ? (
 					<div className="space-y-2">
 						{sourceItems.map((item) => (
-							<div key={`blocked-${item.ip}`} className="grid grid-cols-[1fr_auto_auto] items-center gap-2 text-sm">
+							<div
+								key={`blocked-${item.ip}`}
+								className="grid grid-cols-[1fr_auto_auto] items-center gap-2 text-sm"
+							>
 								<span className="font-mono truncate" title={item.ip}>
 									{item.ip}
 								</span>
 								<span>{item.count.toLocaleString("de-DE")}</span>
-								<span className={`rounded px-2 py-0.5 text-xs ${getRiskBadgeClass(item.risk)}`}>{item.riskLabel}</span>
+								<span className={`rounded px-2 py-0.5 text-xs ${getRiskBadgeClass(item.risk)}`}>
+									{item.riskLabel}
+								</span>
 							</div>
 						))}
 					</div>
@@ -48,4 +53,3 @@ export function BlockedSourcesCard({ items, isHeuristic = true }: BlockedSources
 		</Card>
 	);
 }
-

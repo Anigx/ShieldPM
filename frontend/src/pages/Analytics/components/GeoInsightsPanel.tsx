@@ -41,15 +41,22 @@ export function GeoInsightsPanel({
 								type="button"
 								key={country.countryCode}
 								className={`w-full flex items-center justify-between rounded-md px-2 py-2 text-left transition-colors ${
-									selectedCountry?.countryCode === country.countryCode ? "bg-cyan-500/15" : "hover:bg-slate-900/70"
+									selectedCountry?.countryCode === country.countryCode
+										? "bg-cyan-500/15"
+										: "hover:bg-slate-900/70"
 								}`}
 								onClick={() => onSelectCountry(country.countryCode)}
 							>
 								<div className="flex items-center gap-2 min-w-0">
-									<Flag countryCode={country.countryCode} className="h-4 w-4 rounded-sm overflow-hidden" />
+									<Flag
+										countryCode={country.countryCode}
+										className="h-4 w-4 rounded-sm overflow-hidden"
+									/>
 									<span className="text-sm truncate">{country.countryCode}</span>
 								</div>
-								<span className="text-sm text-slate-200">{country.requests.toLocaleString("de-DE")}</span>
+								<span className="text-sm text-slate-200">
+									{country.requests.toLocaleString("de-DE")}
+								</span>
 							</button>
 						))
 					) : (
@@ -100,7 +107,13 @@ export function GeoInsightsPanel({
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="grid grid-cols-2 gap-2">
-					<Button variant="outline" size="sm" className="gap-2" onClick={onFilterCountry} disabled={!selectedCountry}>
+					<Button
+						variant="outline"
+						size="sm"
+						className="gap-2"
+						onClick={onFilterCountry}
+						disabled={!selectedCountry}
+					>
 						<IconFilter className="h-4 w-4" />
 						<T id="analytics.geo.action.filter-country" />
 					</Button>
@@ -130,7 +143,10 @@ export function GeoInsightsPanel({
 						<>
 							<div className="flex items-center gap-2 text-slate-200">
 								<IconBolt className="h-4 w-4 text-orange-400" />
-								<T id="analytics.geo.recommendation.inspect-country" data={{ country: suspiciousCountries[0].countryCode }} />
+								<T
+									id="analytics.geo.recommendation.inspect-country"
+									data={{ country: suspiciousCountries[0].countryCode }}
+								/>
 							</div>
 							<div className="flex items-center gap-2 text-slate-200">
 								<IconArrowRight className="h-4 w-4 text-cyan-400" />

@@ -29,7 +29,10 @@ export function AnalyticsTopListCard({
 				{items.length ? (
 					<div className="space-y-2">
 						{items.map((item) => (
-							<div key={`${titleId}-${item.label}`} className="flex items-center justify-between gap-2 text-sm">
+							<div
+								key={`${titleId}-${item.label}`}
+								className="flex items-center justify-between gap-2 text-sm"
+							>
 								<span className="truncate text-muted-foreground" title={item.title ?? item.label}>
 									{item.label}
 								</span>

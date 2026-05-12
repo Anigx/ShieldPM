@@ -142,4 +142,3 @@ export function useAnalyticsData(defaultRange: AnalyticsRange = "24h") {
 		totals,
 	};
 }
-

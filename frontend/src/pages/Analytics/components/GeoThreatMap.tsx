@@ -3,14 +3,7 @@ import { geoCentroid } from "d3-geo";
 import isoCountries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 import { useMemo, useState } from "react";
-import {
-	ComposableMap,
-	Geographies,
-	Geography,
-	Line,
-	Marker,
-	ZoomableGroup,
-} from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, Line, Marker, ZoomableGroup } from "react-simple-maps";
 import { Button } from "src/components/ui/button";
 import { T } from "src/locale";
 import { getRiskStroke } from "src/pages/Analytics/utils/analyticsRisk";
@@ -38,7 +31,13 @@ interface HoverState {
 	country: GeoCountryInsight;
 }
 
-export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCountry, mode, layers }: GeoThreatMapProps) {
+export function GeoThreatMap({
+	countryInsights,
+	selectedCountryCode,
+	onSelectCountry,
+	mode,
+	layers,
+}: GeoThreatMapProps) {
 	const [zoom, setZoom] = useState(1);
 	const [center, setCenter] = useState<[number, number]>([0, 15]);
 	const [hovered, setHovered] = useState<HoverState | null>(null);
@@ -64,7 +63,11 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 		<div className="relative rounded-xl border border-slate-800 bg-[#071124] overflow-hidden">
 			<div className="h-[460px] w-full bg-[radial-gradient(circle_at_20%_20%,rgba(14,165,233,0.18),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(99,102,241,0.16),transparent_40%)]">
 				<ComposableMap projectionConfig={{ scale: 160 }}>
-					<ZoomableGroup zoom={zoom} center={center} onMoveEnd={(position) => setCenter(position.coordinates)}>
+					<ZoomableGroup
+						zoom={zoom}
+						center={center}
+						onMoveEnd={(position) => setCenter(position.coordinates)}
+					>
 						<Geographies geography={GEO_URL}>
 							{({ geographies }) => {
 								const centroidMap = new Map<string, [number, number]>();
@@ -79,11 +82,21 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 
 											let fill = "#1b2a40";
 											if (country && layers.traffic) {
-												const intensity = Math.max(0.12, Math.log(country.requests + 1) / Math.log(maxCountryCount + 1));
+												const intensity = Math.max(
+													0.12,
+													Math.log(country.requests + 1) / Math.log(maxCountryCount + 1),
+												);
 												fill = `rgba(14,165,233,${Math.min(0.8, intensity + 0.1)})`;
 											}
-											if (country && (country.risk === "high" || country.risk === "critical") && layers.anomalies) {
-												fill = country.risk === "critical" ? "rgba(239,68,68,0.55)" : "rgba(249,115,22,0.45)";
+											if (
+												country &&
+												(country.risk === "high" || country.risk === "critical") &&
+												layers.anomalies
+											) {
+												fill =
+													country.risk === "critical"
+														? "rgba(239,68,68,0.55)"
+														: "rgba(249,115,22,0.45)";
 											}
 											if (selectedCountryCode && selectedCountryCode === code) {
 												fill = "rgba(168,85,247,0.55)";
@@ -108,7 +121,10 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 														}}
 														style={{
 															default: { outline: "none" },
-															hover: { outline: "none", cursor: country ? "pointer" : "default" },
+															hover: {
+																outline: "none",
+																cursor: country ? "pointer" : "default",
+															},
 															pressed: { outline: "none" },
 														}}
 													/>
@@ -116,7 +132,10 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 													{country && layers.traffic ? (
 														<Marker coordinates={centroid}>
 															<circle
-																r={Math.max(2.5, Math.min(12, Math.log(country.requests + 1) * 2.2))}
+																r={Math.max(
+																	2.5,
+																	Math.min(12, Math.log(country.requests + 1) * 2.2),
+																)}
 																fill={getRiskStroke(country.risk)}
 																fillOpacity={mode === "bubble" ? 0.85 : 0.65}
 																stroke="#0b1220"
@@ -155,23 +174,53 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 			</div>
 
 			<div className="absolute left-4 top-4 flex flex-col gap-2">
-				<Button variant="outline" size="icon" className="h-8 w-8 bg-slate-900/80 border-slate-700" onClick={() => setZoom((value) => Math.min(4, value + 0.25))}>
+				<Button
+					variant="outline"
+					size="icon"
+					className="h-8 w-8 bg-slate-900/80 border-slate-700"
+					onClick={() => setZoom((value) => Math.min(4, value + 0.25))}
+				>
 					<IconPlus className="h-4 w-4" />
 				</Button>
-				<Button variant="outline" size="icon" className="h-8 w-8 bg-slate-900/80 border-slate-700" onClick={() => setZoom((value) => Math.max(1, value - 0.25))}>
+				<Button
+					variant="outline"
+					size="icon"
+					className="h-8 w-8 bg-slate-900/80 border-slate-700"
+					onClick={() => setZoom((value) => Math.max(1, value - 0.25))}
+				>
 					<IconMinus className="h-4 w-4" />
 				</Button>
-				<Button variant="outline" size="icon" className="h-8 w-8 bg-slate-900/80 border-slate-700" onClick={resetView}>
+				<Button
+					variant="outline"
+					size="icon"
+					className="h-8 w-8 bg-slate-900/80 border-slate-700"
+					onClick={resetView}
+				>
 					<IconReload className="h-4 w-4" />
 				</Button>
 			</div>
 
 			<div className="absolute bottom-3 left-3 rounded-md border border-slate-700 bg-slate-900/75 px-3 py-2 text-xs text-slate-200 flex flex-wrap gap-x-4 gap-y-1">
-				<span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-cyan-400" /><T id="analytics.geo.legend.normal" /></span>
-				<span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-orange-400" /><T id="analytics.geo.legend.suspicious" /></span>
-				<span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-red-500" /><T id="analytics.geo.legend.critical" /></span>
-				<span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-purple-400" /><T id="analytics.geo.legend.blocked" /></span>
-				<span className="inline-flex items-center gap-1"><span className="h-0.5 w-3 bg-orange-400" /><T id="analytics.geo.legend.connections" /></span>
+				<span className="inline-flex items-center gap-1">
+					<span className="h-2 w-2 rounded-full bg-cyan-400" />
+					<T id="analytics.geo.legend.normal" />
+				</span>
+				<span className="inline-flex items-center gap-1">
+					<span className="h-2 w-2 rounded-full bg-orange-400" />
+					<T id="analytics.geo.legend.suspicious" />
+				</span>
+				<span className="inline-flex items-center gap-1">
+					<span className="h-2 w-2 rounded-full bg-red-500" />
+					<T id="analytics.geo.legend.critical" />
+				</span>
+				<span className="inline-flex items-center gap-1">
+					<span className="h-2 w-2 rounded-full bg-purple-400" />
+					<T id="analytics.geo.legend.blocked" />
+				</span>
+				<span className="inline-flex items-center gap-1">
+					<span className="h-0.5 w-3 bg-orange-400" />
+					<T id="analytics.geo.legend.connections" />
+				</span>
 			</div>
 
 			{hovered ? (
@@ -202,11 +251,11 @@ export function GeoThreatMap({ countryInsights, selectedCountryCode, onSelectCou
 						</p>
 					) : null}
 					<p className="text-sm text-slate-100 mt-3">
-						<T id="analytics.geo.risk-score" />: <span className="font-semibold">{hovered.country.riskLabel}</span>
+						<T id="analytics.geo.risk-score" />:{" "}
+						<span className="font-semibold">{hovered.country.riskLabel}</span>
 					</p>
 				</div>
 			) : null}
 		</div>
 	);
 }
-

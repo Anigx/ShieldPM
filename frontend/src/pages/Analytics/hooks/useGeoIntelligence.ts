@@ -1,7 +1,13 @@
 ﻿import { useMemo, useState } from "react";
 import type { AnalyticsRequestLog, AnalyticsSummary } from "src/api/backend";
 import type { AnalyticsSeriesPoint } from "src/pages/Analytics/hooks/useAnalyticsData";
-import { getCountryRisk, getIpRisk, getRiskLabel, isSuspiciousPath, type RiskLevel } from "src/pages/Analytics/utils/analyticsRisk";
+import {
+	getCountryRisk,
+	getIpRisk,
+	getRiskLabel,
+	isSuspiciousPath,
+	type RiskLevel,
+} from "src/pages/Analytics/utils/analyticsRisk";
 import {
 	countryCodeToName,
 	countryCodeToRegion,
@@ -83,7 +89,12 @@ function createTopPathMap(recentRequests?: AnalyticsRequestLog[]) {
 	return result;
 }
 
-export function useGeoIntelligence({ summary, series, isDemo = false, hiddenIpLabel = "***" }: UseGeoIntelligenceInput) {
+export function useGeoIntelligence({
+	summary,
+	series,
+	isDemo = false,
+	hiddenIpLabel = "***",
+}: UseGeoIntelligenceInput) {
 	const [selectedCountryCode, setSelectedCountryCode] = useState<string | null>(null);
 
 	const derived = useMemo(() => {
@@ -95,7 +106,10 @@ export function useGeoIntelligence({ summary, series, isDemo = false, hiddenIpLa
 
 		const countryInsights: GeoCountryInsight[] = (summary?.topCountries ?? []).map((country) => {
 			const suspiciousPaths = suspiciousPathMap.get(country.countryCode) ?? 0;
-			const errorRate = totalRequests > 0 ? (Number(summary?.status4xx ?? 0) + Number(summary?.status5xx ?? 0)) / totalRequests : 0;
+			const errorRate =
+				totalRequests > 0
+					? (Number(summary?.status4xx ?? 0) + Number(summary?.status5xx ?? 0)) / totalRequests
+					: 0;
 			const heuristicBlocked = Math.max(0, Math.round(suspiciousPaths * 0.35));
 			const risk = getCountryRisk({
 				requests: country.count,
@@ -139,7 +153,15 @@ export function useGeoIntelligence({ summary, series, isDemo = false, hiddenIpLa
 			regionMap.set(region, (regionMap.get(region) ?? 0) + country.count);
 		}
 
-		const defaultRegionOrder: RegionKey[] = ["europe", "north-america", "asia", "south-america", "africa", "oceania", "unknown"];
+		const defaultRegionOrder: RegionKey[] = [
+			"europe",
+			"north-america",
+			"asia",
+			"south-america",
+			"africa",
+			"oceania",
+			"unknown",
+		];
 		const regionTraffic: RegionTraffic[] = defaultRegionOrder
 			.filter((region) => regionMap.has(region))
 			.map((region) => ({
@@ -152,8 +174,13 @@ export function useGeoIntelligence({ summary, series, isDemo = false, hiddenIpLa
 			{ count: 0, time: "-" },
 		);
 
-		const suspiciousCountries = countryInsights.filter((country) => country.risk === "high" || country.risk === "critical");
-		const heuristicBlockedRequests = countryInsights.reduce((sum, country) => sum + (country.heuristicBlocked ?? 0), 0);
+		const suspiciousCountries = countryInsights.filter(
+			(country) => country.risk === "high" || country.risk === "critical",
+		);
+		const heuristicBlockedRequests = countryInsights.reduce(
+			(sum, country) => sum + (country.heuristicBlocked ?? 0),
+			0,
+		);
 
 		const timelineData = series.map((point) => ({
 			time: point.timeDisplay,

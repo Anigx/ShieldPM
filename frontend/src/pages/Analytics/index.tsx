@@ -1,9 +1,4 @@
-﻿import {
-	IconActivity,
-	IconChartBar,
-	IconDatabase,
-	IconShieldCheck,
-} from "@tabler/icons-react";
+﻿import { IconActivity, IconChartBar, IconDatabase, IconShieldCheck } from "@tabler/icons-react";
 import { useIntl } from "react-intl";
 import { Loading } from "src/components";
 import {
@@ -48,7 +43,10 @@ export default function Analytics() {
 
 	const statusBadges: StatusBadge[] = [
 		{
-			label: totals.errorRate <= 0.1 ? intl.formatMessage({ id: "analytics.status.stable" }) : intl.formatMessage({ id: "analytics.status.watch" }),
+			label:
+				totals.errorRate <= 0.1
+					? intl.formatMessage({ id: "analytics.status.stable" })
+					: intl.formatMessage({ id: "analytics.status.watch" }),
 			variant: totals.errorRate <= 0.1 ? "stable" : "warning",
 		},
 		{
@@ -111,7 +109,10 @@ export default function Analytics() {
 				<AnalyticsKpiCard
 					title={intl.formatMessage({ id: "analytics.success-rate" })}
 					value={formatPercent(totals.successRate)}
-					description={intl.formatMessage({ id: "analytics.responses" }, { count: formatNumber(totals.status2xx) })}
+					description={intl.formatMessage(
+						{ id: "analytics.responses" },
+						{ count: formatNumber(totals.status2xx) },
+					)}
 					icon={IconShieldCheck}
 					iconClassName="text-green-300"
 				/>

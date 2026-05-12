@@ -31,16 +31,41 @@ export function AnalyticsTrafficChart({ data }: AnalyticsTrafficChartProps) {
 										<stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
 									</linearGradient>
 								</defs>
-								<XAxis dataKey="timeDisplay" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} minTickGap={28} />
+								<XAxis
+									dataKey="timeDisplay"
+									stroke="#94a3b8"
+									fontSize={12}
+									tickLine={false}
+									axisLine={false}
+									minTickGap={28}
+								/>
 								<YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
 								<CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
 								<Tooltip
-									contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: 8 }}
+									contentStyle={{
+										backgroundColor: "#0f172a",
+										borderColor: "#1e293b",
+										borderRadius: 8,
+									}}
 									labelStyle={{ color: "#e2e8f0" }}
 								/>
 								<Legend />
-								<Area type="monotone" dataKey="count" name="Gesamt" stroke="#06b6d4" fill="url(#analyticsCount)" strokeWidth={2} />
-								<Area type="monotone" dataKey="s2xx" name="2xx" stroke="#22c55e" fill="url(#analytics2xx)" strokeWidth={1.4} />
+								<Area
+									type="monotone"
+									dataKey="count"
+									name="Gesamt"
+									stroke="#06b6d4"
+									fill="url(#analyticsCount)"
+									strokeWidth={2}
+								/>
+								<Area
+									type="monotone"
+									dataKey="s2xx"
+									name="2xx"
+									stroke="#22c55e"
+									fill="url(#analytics2xx)"
+									strokeWidth={1.4}
+								/>
 							</AreaChart>
 						</ResponsiveContainer>
 					) : (
@@ -54,4 +79,3 @@ export function AnalyticsTrafficChart({ data }: AnalyticsTrafficChartProps) {
 		</Card>
 	);
 }
-

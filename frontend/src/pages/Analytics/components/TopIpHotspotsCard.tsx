@@ -24,7 +24,9 @@ export function TopIpHotspotsCard({ items }: TopIpHotspotsCardProps) {
 									{item.ip}
 								</span>
 								<span className="text-slate-200">{item.count.toLocaleString("de-DE")}</span>
-								<span className={`rounded px-2 py-0.5 text-xs ${getRiskBadgeClass(item.risk)}`}>{item.riskLabel}</span>
+								<span className={`rounded px-2 py-0.5 text-xs ${getRiskBadgeClass(item.risk)}`}>
+									{item.riskLabel}
+								</span>
 							</div>
 						))}
 					</div>
@@ -37,4 +39,3 @@ export function TopIpHotspotsCard({ items }: TopIpHotspotsCardProps) {
 		</Card>
 	);
 }
-

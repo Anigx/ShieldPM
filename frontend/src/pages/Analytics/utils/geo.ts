@@ -1,21 +1,14 @@
 ﻿import type { AnalyticsSummary } from "src/api/backend";
 
-export type RegionKey =
-	| "europe"
-	| "north-america"
-	| "south-america"
-	| "asia"
-	| "africa"
-	| "oceania"
-	| "unknown";
+export type RegionKey = "europe" | "north-america" | "south-america" | "asia" | "africa" | "oceania" | "unknown";
 
 const regionSets: Record<Exclude<RegionKey, "unknown">, Set<string>> = {
-	"europe": new Set(["BG", "AT", "NL", "LU", "RO", "DE", "FR", "IT", "ES", "PL", "CH", "GB", "SE"]),
+	europe: new Set(["BG", "AT", "NL", "LU", "RO", "DE", "FR", "IT", "ES", "PL", "CH", "GB", "SE"]),
 	"north-america": new Set(["US", "CA", "MX"]),
 	"south-america": new Set(["BR", "AR", "CL", "CO", "PE"]),
-	"asia": new Set(["CN", "JP", "KR", "IN", "SG", "TR", "AE"]),
-	"africa": new Set(["ZA", "NG", "EG", "MA", "KE"]),
-	"oceania": new Set(["AU", "NZ"]),
+	asia: new Set(["CN", "JP", "KR", "IN", "SG", "TR", "AE"]),
+	africa: new Set(["ZA", "NG", "EG", "MA", "KE"]),
+	oceania: new Set(["AU", "NZ"]),
 };
 
 export function getCountryPercentage(count: number, total: number): number {

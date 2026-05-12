@@ -1,4 +1,9 @@
-import { IconAdjustmentsHorizontal, IconAlertTriangle, IconRosetteDiscountCheckFilled, IconServer } from "@tabler/icons-react";
+import {
+	IconAdjustmentsHorizontal,
+	IconAlertTriangle,
+	IconRosetteDiscountCheckFilled,
+	IconServer,
+} from "@tabler/icons-react";
 import { useIntl } from "react-intl";
 import { Button } from "src/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/components/ui/select";
@@ -119,4 +124,3 @@ export function AnalyticsHeader({
 		</div>
 	);
 }
-

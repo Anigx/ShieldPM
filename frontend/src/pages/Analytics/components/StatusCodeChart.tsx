@@ -21,10 +21,24 @@ export function StatusCodeChart({ data }: StatusCodeChartProps) {
 					{data.length > 0 ? (
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart data={data}>
-								<XAxis dataKey="timeDisplay" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} minTickGap={28} />
+								<XAxis
+									dataKey="timeDisplay"
+									stroke="#94a3b8"
+									fontSize={12}
+									tickLine={false}
+									axisLine={false}
+									minTickGap={28}
+								/>
 								<YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
 								<CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
-								<Tooltip cursor={{ fill: "transparent" }} contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: 8 }} />
+								<Tooltip
+									cursor={{ fill: "transparent" }}
+									contentStyle={{
+										backgroundColor: "#0f172a",
+										borderColor: "#1e293b",
+										borderRadius: 8,
+									}}
+								/>
 								<Legend />
 								<Bar dataKey="s2xx" name="2xx" stackId="status" fill="#22c55e" />
 								<Bar dataKey="s4xx" name="4xx" stackId="status" fill="#f59e0b" />
@@ -42,4 +56,3 @@ export function StatusCodeChart({ data }: StatusCodeChartProps) {
 		</Card>
 	);
 }
-

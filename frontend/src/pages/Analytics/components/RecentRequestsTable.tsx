@@ -125,13 +125,20 @@ export function RecentRequestsTable({ requests = [], isDemo = false, title }: Re
 							</thead>
 							<tbody>
 								{filteredRequests.map((request, index) => (
-									<tr key={`${request.time}-${request.ip}-${index}`} className="border-b border-slate-900 hover:bg-slate-900/40">
+									<tr
+										key={`${request.time}-${request.ip}-${index}`}
+										className="border-b border-slate-900 hover:bg-slate-900/40"
+									>
 										<td className="p-2 whitespace-nowrap">{formatTime(request.time)}</td>
 										<td className="p-2">
-											<Badge className={getMethodBadgeClass(request.method)}>{request.method}</Badge>
+											<Badge className={getMethodBadgeClass(request.method)}>
+												{request.method}
+											</Badge>
 										</td>
 										<td className="p-2">
-											<Badge className={getStatusBadgeClass(request.status)}>{request.status}</Badge>
+											<Badge className={getStatusBadgeClass(request.status)}>
+												{request.status}
+											</Badge>
 										</td>
 										<td className="p-2 max-w-[360px] truncate" title={request.path}>
 											{request.path}
@@ -140,14 +147,21 @@ export function RecentRequestsTable({ requests = [], isDemo = false, title }: Re
 										<td className="p-2">
 											{request.countryCode ? (
 												<div className="flex items-center gap-2">
-													<Flag countryCode={request.countryCode} className="h-4 w-4 rounded-sm overflow-hidden" />
-													<span className="text-xs text-muted-foreground">{request.countryCode}</span>
+													<Flag
+														countryCode={request.countryCode}
+														className="h-4 w-4 rounded-sm overflow-hidden"
+													/>
+													<span className="text-xs text-muted-foreground">
+														{request.countryCode}
+													</span>
 												</div>
 											) : (
 												<span className="text-xs text-muted-foreground">-</span>
 											)}
 										</td>
-										<td className="p-2 text-right whitespace-nowrap">{formatDuration(request.duration)}</td>
+										<td className="p-2 text-right whitespace-nowrap">
+											{formatDuration(request.duration)}
+										</td>
 									</tr>
 								))}
 							</tbody>
@@ -162,4 +176,3 @@ export function RecentRequestsTable({ requests = [], isDemo = false, title }: Re
 		</Card>
 	);
 }
-
