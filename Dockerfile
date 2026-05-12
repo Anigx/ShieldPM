@@ -1,6 +1,7 @@
 # ==========================================
 # Stage 1: Build Frontend
 # ==========================================
+ARG BASE_IMAGE=ghcr.io/shedowe19/shieldpm-nginx:master
 FROM --platform="$BUILDPLATFORM" debian:trixie-slim AS frontend
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 ARG NODE_ENV=production
@@ -47,7 +48,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm binu
 # ==========================================
 # Final Stage
 # ==========================================
-ARG BASE_IMAGE=ghcr.io/shedowe19/shieldpm-nginx:master
 FROM ${BASE_IMAGE}
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 ENV NODE_ENV=production
