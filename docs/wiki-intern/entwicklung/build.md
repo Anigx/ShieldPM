@@ -27,6 +27,7 @@ Das `Dockerfile` verwendet drei Stages:
 
 - **Basis**: `ghcr.io/shedowe19/shieldpm-nginx:master`
 - **Aktion**: Kopiert Backend + Frontend + rootfs-Overlay + WireGuard-Tools
+- **Runtime-Abhaengigkeiten**: installiert u.a. `nodejs`, `npm`, `jq`, `tini` (wichtig fuer Fork-Builds mit oeffentlicher Base)
 - **Entrypoint**: `tini -- entrypoint.sh`
 - **Healthcheck**: `healthcheck.sh`
 

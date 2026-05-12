@@ -66,6 +66,9 @@ COPY rootfs /
 
 # --- WireGuard Support ---
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    jq \
+    nodejs \
+    npm \
     tini \
     wireguard-tools \
     iproute2 \
